@@ -40,7 +40,7 @@ GEM
     authlogic (3.0.3)
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
-    aws-sdk (1.9.2)
+    aws-sdk (1.9.5)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -122,11 +122,11 @@ GEM
     oink (0.10.1)
       activerecord
       hodel_3000_compliant_logger
-    paperclip (3.0.4)
+    paperclip (3.4.2)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (>= 0.0.2)
+      cocaine (~> 0.5.0)
       mime-types
     pg (0.17.1)
     polyglot (0.3.5)
@@ -145,8 +145,13 @@ GEM
       activesupport (= 3.2.19)
       bundler (~> 1.0)
       railties (= 3.2.19)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
     rails_autolink (1.1.6)
       rails (> 3.1)
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (3.2.19)
       actionpack (= 3.2.19)
       activesupport (= 3.2.19)
@@ -201,9 +206,10 @@ DEPENDENCIES
   kaminari (~> 0.16.1)
   newrelic_rpm (~> 3.9.0.229)
   oink (~> 0.10.1)
-  paperclip (~> 3.0.0)
+  paperclip (~> 3.4.1)
   pg (~> 0.17.1)
   rails (= 3.2.19)
+  rails_12factor (~> 0.0.2)
   rails_autolink (~> 1.1.6)
   redcarpet (~> 3.1.2)
   sass-rails (~> 3.2.3)

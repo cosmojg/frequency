@@ -29,7 +29,7 @@ gem 'sass-rails',   '~> 3.2.3'
 gem 'compass-rails', '~> 1.0.3'
 gem 'compass', '~> 0.12.2'
 gem 'jquery-rails', '~> 2.1.4'
-
+gem 'thin', '~> 1.6.2'
 gem 'paperclip', "~> 3.4.1"
 gem 'aws-sdk', '~> 1.9.2'
 gem 'authlogic', '~> 3.0.0'

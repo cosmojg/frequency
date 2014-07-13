@@ -41,26 +41,42 @@ We are using a Heroku labs user-env-compile (https://devcenter.heroku.com/articl
 
 If asset precompilation ever fails and you have modified *any* of the assets, you can manually run
 
- heroku run rake assets:precompile
+```
+heroku run rake assets:precompile
+```
 
 If you ever have to run migrations for a deploy, turn on maintenance mode *before* deploying:
 
- heroku maintenance:on
+```
+heroku maintenance:on
+```
 
 And then turn it off once deployment is done
 
- heroku maintenance:off
+```
+heroku maintenance:off
+```
 
 ### Testing Memory
 
 We use Oink which lets us test for memory leaks. In order to do this, run:
 
- oink --threshold=1 log/*
+```
+oink --threshold=1 log/*
+```
 
 or for more detail
 
- oink --format verbose  --threshold=1 log/*
+```
+oink --format verbose  --threshold=1 log/*
+```
 
 Mac users can run an Apache benchmarking tool which lets you force memory leaks to accrue memory usage:
 
- ab -kc 6 -t 30  http://127.0.0.1:3000/
+```
+ab -kc 6 -t 30  http://127.0.0.1:3000/
+```
+
+### License
+
+Frequency is released under the [MIT License](http://opensource.org/licenses/MIT).

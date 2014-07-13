@@ -1,0 +1,125 @@
+<%= title "Pictures - " + @picture.title %>
+
+<% if can? :manage, @picture %>
+  <div id="picture-controls">
+    <%= link_to "", edit_picture_path, class: 'control-icon edit' %>
+    <%= link_to "", picture_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'control-icon delete' %>
+  </div>
+<% end %>
+
+<%= link_to '&laquo; Back to all pictures'.html_safe, pictures_path %>
+<h1 style="padding-top: 3px"><%= @picture.title %></h1>
+
+<div class="clearfix">
+
+  <div id="picture-left-side">
+    <div id="big-picture-frame">
+      <%= link_to image_tag(@picture.photo_url.url, class: 'picture-frame'), @picture.photo_url.url, target: '_blank' %>
+    </div>
+
+    <% if @picture.likes.size > 0 %>
+    <div id="picture-one-ups">
+      <div id="picture-one-ups-header">1UPs:</div>
+      <% @picture.votes.up.by_type(User).voters.each do |user| %>
+        <%= link_to user.username, user %> &nbsp;
+      <% end %>
+    </div>
+    <% end %>
+
+    <h3>Comments</h3>
+
+    <div id="picture-comments">
+      <% if @picture.comments.empty? %>
+        <div id="picture-blank-slate-comment">
+          There aren't any comments yet. Be the first!
+        </div>
+      <% end %>
+      <% @picture.comments.order("created_at asc").each do |comment| %>
+      <div class="picture-comment">
+        <div class="picture-comment-controls">
+          <% if can? :like, comment %>
+            <% if !@current_user.voted_up_on? comment %>
+              <%= link_to "+1UP", [:like, @picture, comment], class: 'oneup-button-clear' %>
+            <% else %>
+              <%= link_to "Undo", [:unlike, @picture, comment], class: 'oneup-button-clear oneup-voted' %>
+            <% end %>
+          <% end %>
+
+          <% if can? :edit, comment %>
+          <%= link_to "", [:edit, @picture, comment], class: 'control-icon edit' %>
+          <% end %>
+
+          <% if can? :delete, comment %>
+          <%= link_to "", [@picture, comment], method: :delete, data: { confirm: 'Are you sure?' }, class: 'control-icon delete' %>
+          <% end %>
+        </div>
+        <div class="picture-comment-author">
+          <strong><%= link_to comment.user.username, comment.user %></strong>
+          <span class="picture-comment-timestamp"><%= time_ago_in_words(comment.created_at) %> ago</span>
+          <% if comment.likes.size > 0 %>
+          <span class="comment-like-count"><%= pluralize(comment.likes.size, 'life') %></span>
+          <% end %>
+        </div>
+        <div class="picture-comment-content">
+          <%= auto_link(simple_format(comment.body)) %>
+        </div>
+      </div>
+      <% end %>
+
+      <% if can? :create, Comment %>
+        <div id="comment-reply-form">
+          <%= form_for ([@picture, @picture.comments.build()]) do |f| %>
+            <div class="post-info post-reply">
+              <%= f.text_area :body, id: 'reply-textarea', class: 'auto-expand', placeholder: "Write a comment..." %><br />
+              <%= f.submit 'Post Comment', class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="picture-right-side">
+    <div class="clearfix">
+      <% if @newer_picture %>
+        <% photo_path = @newer_picture.photo_url.url(:medium) %>
+        <%= content_tag('div', class: 'navigation-picture', style: 'background-image: url(' + photo_path + ')'.html_safe ) do %>
+          <%= link_to '&lsaquo;'.html_safe, @newer_picture, class: 'navigation-picture-text nav-left' %>
+        <% end %>
+      <% end %>
+
+      <% if @older_picture %>
+        <% photo_path = @older_picture.photo_url.url(:medium) %>
+        <%= content_tag('div', class: 'navigation-picture', style: 'background-image: url(' + photo_path + ')'.html_safe ) do %>
+          <%= link_to '&rsaquo;'.html_safe, @older_picture, class: 'navigation-picture-text nav-right' %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div id="picture-stats-bar">
+      <div class="picture-stats-icon eye"></div>
+      <%= pluralize(@picture.views, 'view') %>
+      <div class="picture-stats-icon heart"></div>
+      <%= pluralize(@picture.likes.size, 'life') %>
+      <% if can? :like, @picture %>
+        <% if !@current_user.voted_up_on? @picture %>
+          <%= link_to "+1UP", [:like, @picture], class: 'oneup-button' %>
+        <% else %>
+          <%= link_to "Undo", [:unlike, @picture], class: 'oneup-button' %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div id="picture-author">
+      Shared by <%= link_to @picture.user.username, @picture.user %> <%= time_ago_in_words(@picture.created_at) %> ago
+    </div>
+
+    <% if (@picture.caption.length > 0) %>
+      <div id="picture-caption">
+        <%= auto_link simple_format(@picture.caption) %>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

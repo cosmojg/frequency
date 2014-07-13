@@ -1,0 +1,39 @@
+<%=form_for @picture, :url => @picture, :html => { :multipart => true } do |f| %>
+  <% if @picture.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @picture.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :title, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :title, class: 'input-xlarge' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :caption, 'Caption (optional)', class: "control-label" %>
+    <div class="controls">
+      <%= f.text_area :caption, rows: 4, class: 'input-xxlarge' %>
+
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :photo_url, 'Picture', class: "control-label" %>
+    <div class="controls">
+      <%= f.file_field :photo_url %><br /><br />
+
+      <span class="help-block">
+        The max file size is 2mb and must be a JPG/JPEG/GIF/PNG
+      </span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

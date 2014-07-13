@@ -1,0 +1,7 @@
+<% title "New conversation in " + @board.title %>
+
+<%= link_to '&laquo; Back to boards'.html_safe, boards_path %>
+<h1>New conversation</h1>
+in <i><%= @board.title %></i><br /><br />
+
+<%= render 'form' %>

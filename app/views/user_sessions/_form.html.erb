@@ -1,0 +1,33 @@
+<%= form_for(@user_session) do |f| %>
+  <% if @user_session.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @user_session.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :username, "Username or Email", class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :username %>
+    </div>
+  </div>
+
+  <div class="control-group">
+     <%= f.label :password, class: "control-label" %>
+    <div class="controls">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <%= f.label :remember_me, class: "checkbox" do %>
+    <%= f.check_box :remember_me %> Remember me
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit 'Login', class: 'btn btn-primary' %>
+  </div>
+<% end %>

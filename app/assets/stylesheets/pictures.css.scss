@@ -1,0 +1,222 @@
+@import "compass/css3";
+@import "mixins";
+@import "variables";
+
+#picture-viewer {
+  header {
+    margin-bottom: 20px;
+    width: 100%;
+
+    #left-header {
+      float: left;
+
+      h1 {
+        padding-top: 5px;
+        float: left;
+      }
+    }
+    #picture-sort {
+      float: left;
+      margin: 19px 0 0 30px;
+    }
+    aside {
+      float: right;
+      padding-top: 10px;
+    }
+  }
+  a.picture-frame {
+    width: 220px;
+    height: 220px;
+    display: block;
+    background-color: #eee;
+    border: 4px solid #fff;
+    @include box-shadow(rgba(0,0,0,0.4) 0 1px 5px);
+    float: left;
+    margin: 0 36px 36px 0;
+    @include transition(all 0.1s linear);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &:nth-child(4n + 1) { margin-right: 0; }
+    &:hover {
+      @include opacity(0.8);
+      @include transition(all 0.1s linear);
+    }
+  }
+}
+
+#picture-controls {
+  float: right;
+}
+
+/*-------------------------------------------------
+PICTURE SHOW LEFT SIDE
+-------------------------------------------------*/
+#picture-left-side {
+  padding-top: 20px;
+  width: 65%;
+  float: left;
+
+  #big-picture-frame {
+    width: 100%;
+    background-color: #f2f2f2;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 5px solid #fff;
+    @include box-shadow(rgba(0,0,0,0.4) 0 0 4px);
+    @include transition(opacity 0.1s linear);
+
+    &:hover {
+      @include opacity(0.9);
+      @include transition(opacity 0.1s linear);
+    }
+    .picture-frame {
+      max-width: 100%;
+      max-height: 500px
+    }
+  }
+  #picture-one-ups {
+    padding: 10px 0 20px 0;
+    font-weight: bold;
+
+    #picture-one-ups-header {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+  h3 { font-weight: bold; }
+  #picture-comments {
+    font-size: 17px;
+    padding-top: 10px;
+
+    #picture-blank-slate-comment {
+      color: #999;
+      padding-top: 10px;
+    }
+    .picture-comment-controls {
+      float: right;
+    }
+    .picture-comment {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed darken(#e7e7e7, 5%);
+
+      &:first-child {
+        border-top: none;
+        margin-top: 0;
+      }
+      .picture-comment-author {
+        color: #969696;
+
+        .picture-comment-timestamp {
+          margin-left: 8px;
+        }
+        .comment-like-count {
+          font-weight: bold;
+          margin-left: 8px;
+        }
+      }
+      .picture-comment-content {
+        margin-top: -7px;
+        line-height: 1.5;
+        word-wrap: break-word;
+      }
+    }
+    #comment-reply-form {
+      margin-top: 40px;
+
+      textarea {
+        width: 100%;
+        min-height: 70px;
+        height: 70px;
+      }
+    }
+  }
+}
+
+/*-------------------------------------------------
+PICTURE SHOW RIGHT SIDE
+-------------------------------------------------*/
+#picture-right-side {
+  padding-top: 20px;
+  width: 35%;
+  padding-left: 30px;
+  float: right;
+
+  .navigation-picture {
+    background-color: #000;
+    width: 145px;
+    height: 145px;
+    float: left;
+    margin-left: 26px;
+    border: 5px solid #fff;
+    position: relative;
+    @include box-shadow(rgba(0,0,0,0.4) 0 0 4px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    @include transition(opacity 0.1s linear);
+    @include opacity(0.9);
+
+    &:first-child { margin-left: 0; }
+    &:hover {
+      @include transition(opacity 0.1s linear);
+      @include opacity(1);
+    }
+    a.navigation-picture-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+      font-weight: bold;
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 100px;
+      text-align: center;
+      @include text-shadow(rgba(0,0,0,1 ) 0 0 10px);
+
+      &:hover { text-decoration: none; }
+    }
+  }
+  #picture-stats-bar {
+    width: 100%;
+    background-color: #f2f2f2;
+    border: 1px solid darken(#f2f2f2, 5%);
+    @include border-radius(2px);
+    padding: 10px 15px 9px 15px;
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 18px;
+    color: #565656;
+    @include text-shadow(#fff 0 1px);
+    @include box-shadow(#fff 0 1px inset);
+
+    .oneup-button { float: right; }
+  }
+  #picture-author {
+    color: #666;
+    padding-bottom: 20px;
+
+    a {
+      color: #666;
+      font-weight: bold;
+    }
+  }
+  #picture-caption {
+    line-height: 1.5;
+    font-size: 16px;
+    word-wrap: break-word;
+    border-top: 1px solid #eee;
+
+  }
+  .picture-stats-icon {
+    background: image-url("global-sprite.png");
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 0 0 -2px 10px;
+    &:first-child { margin-left: 0; }
+    &:hover { @include opacity(0.8); }
+  }
+  .eye { background-position: 0 -192px; }
+  .heart { background-position: -18px -192px; }
+}

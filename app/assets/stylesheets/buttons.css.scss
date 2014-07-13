@@ -1,0 +1,122 @@
+@import "compass/css3";
+@import "variables";
+@import "mixins";
+
+/*-------------------------------------------------
+BUTTON STYLES
+-------------------------------------------------*/
+
+.btn {
+  display: inline-block;
+  padding: 6px 15px 4px;
+  margin-bottom: 0;
+  font-size: $baseFontSize - 1px;
+  line-height: 20px;
+  background-color: $baseColor;
+  color: #000;
+  text-align: center;
+  font-family: $font-stack;
+  @include letterpress(0.8);
+  //text-shadow: 0 2px 0 rgba(255,255,255, .4px);
+  font-weight: bold;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 0;
+  @include border-radius(3px);
+  @include appearance(none); // Remove OS specific styling
+}
+
+.btn:hover {
+  background-color: darken($baseColor, 10%);
+  @include transition(background-color .1s linear);
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active, .btn:active {
+  background-color: darken($baseColor, 20%);
+  color: #fff;
+  outline: 0;
+}
+
+.btn.disabled, .btn[disabled] {
+  cursor: default;
+  background-color: darken(#fff, 10%);
+  background-image: none;
+  opacity: 0.65;
+  @include box-shadow(none);
+}
+
+.btn-large {
+  padding: 9px 14px;
+  font-size: 18px;
+  line-height: normal;
+  @include border-radius(5px);
+}
+
+.btn-small {
+  padding: 5px 9px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.btn-mini {
+  padding: 2px 6px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.btn-warning {
+  border-bottom: 1px solid darken(#ceae4b, 20%);
+  background-color: #ceae4b;
+  &:hover { background-color: darken(#ceae4b, 7%); }
+  &:active { background-color: darken(#ceae4b, 10%); }
+}
+.btn-danger {
+  background-color: lighten(#904d4d, 45%);
+  border: 2px solid lighten(#904d4d, 10%);
+  color: darken(#904d4d, 20%);
+  
+  &:hover {
+    border: 2px solid darken(#904d4d, 20%);
+    @include background(linear-gradient(top, lighten(#904d4d, 20%),
+                                      lighten(#904d4d, 5%)));
+    @include text-shadow(darken(#904d4d, 10%) 0 2px);
+    color: #fff !important;
+  }
+  &:active { @include background(linear-gradient(top, lighten(#904d4d, 5%), 
+                                        lighten(#904d4d, 20%))); }
+}
+.btn-success { 
+  background-color: #d9f0db;
+  border: 2px solid #63a769;
+  color: #15871f !important;
+
+  &:hover {
+    border: 2px solid darken(#85c285, 27%);
+    @include background(linear-gradient(top, #85c285, darken(#85c285, 10%)));
+    @include text-shadow(darken(#85c285, 20%) 0 2px);
+    color: #fff !important;
+  }
+  &:active { @include background(linear-gradient(top, darken(#85c285, 15%), 
+                                                    darken(#85c285, 5%))); }
+}
+.btn-primary { 
+  background-color: #f7ddbe;
+  border: 2px solid #f09d36;
+  color: darken(#f09d36, 25%) !important;
+
+  &:hover {
+    border: 2px solid darken(#f09d36, 20%);
+    @include background(linear-gradient(top, #f0ba66, #f09d36));
+    @include text-shadow(darken(#f09d36, 17%) 0 2px);
+    color: #fff !important;
+  }
+  &:active { @include background(linear-gradient(top, darken(#f09d36, 5%), 
+                                                    darken(#f0ba66, 5%))); }
+}

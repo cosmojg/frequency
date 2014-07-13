@@ -1,0 +1,137 @@
+<% title @user.username + "'s Profile" %>
+
+<div id="user-profiles" class="clearfix">
+  <div id="profile-left-side">
+    <h1>Wi-Fi Tag</h1>
+    <div id="player-card">
+      <div id="player-name"><%= @user.username %></div>
+      <div id="player-secondary">Member for <%= time_ago_in_words(@user.created_at) %></div>
+
+      <div id="player-avatar-position">
+        <div id="player-avatar"><%= image_tag @user.avatar.url(:medium) %></div>
+      </div>
+
+      <% if (@user.friendcode != nil) && (@user.friendcode.length > 0) %>
+        <div class="player-detail">
+          <div class="detail-title">3DS</div>
+          <div class="detail-value"><%= @user.friendcode %></div>
+        </div>
+      <% end %>
+
+      <% if (@user.wiiu_id != nil) && (@user.wiiu_id.length > 0) %>
+        <div class="player-detail">
+          <div class="detail-title">Wii U</div>
+          <div class="detail-value"><%= @user.wiiu_id %></div>
+        </div>
+      <% end %>
+
+      <% if (@user.xbox_live != nil) && (@user.xbox_live.length > 0) %>
+        <div class="player-detail">
+          <div class="detail-title">XBL</div>
+          <div class="detail-value"><%= @user.xbox_live %></div>
+        </div>
+      <% end %>
+
+      <% if (@user.psn != nil) && (@user.psn.length > 0) %>
+        <div class="player-detail">
+          <div class="detail-title">PSN</div>
+          <div class="detail-value"><%= @user.psn %></div>
+        </div>
+      <% end %>
+
+      <% if (@user.steam != nil) && (@user.steam.length > 0) %>
+        <div class="player-detail">
+          <div class="detail-title">Steam</div>
+          <div class="detail-value"><%= @user.steam %></div>
+        </div>
+      <% end %>
+    </div>
+
+    <h1>User Activity</h1>
+
+    <div id="latest-activity">
+      <% if @latest_activity.count == 0 %>
+        <div class="blank-slate">Aw, it looks like <%= @user.username %> has been a bit quiet.</div>
+      <% end %>
+      <% @latest_activity.each do |activity| %>
+        <%= render "overview/activity", activity: activity %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="profile-right-side">
+    <h1>Shared pictures</h1>
+    <div id="profile-pictures" class="clearfix">
+      <% if @pictures.count == 0 %>
+        <div class="blank-slate">No photos? No fun!</div>
+      <% end %>
+      <% @pictures.limit(15).each do |picture| %>
+        <% photo_path = picture.photo_url.url(:medium) %>
+        <%= link_to '', picture, class: 'picture-frame', style: 'background-image: url(' + photo_path + ')'.html_safe %>
+      <% end %>
+    </div>
+
+    <h1>Statistics</h1>
+
+    <div id="profile-statistics">
+      <!-- lol, table, I know. this is temporary -->
+      <table>
+        <tr>
+          <td><strong>Board posts</strong></td>
+          <td><%= @posts.size %></td>
+        </tr>
+        <tr>
+          <td><strong>1UPs given</strong></td>
+          <td><%= @user.votes.up.votables.count %></td>
+        <tr>
+          <td><strong>Pictures shared</strong></td>
+          <td><%= @pictures.count %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<% if @current_user && @current_user.admin? %>
+  <br /><br /><hr />
+  <h2>Admin Info</h2>
+  <table>
+    <tr>
+      <td>Role</td>
+      <td><strong><%= @user.role %></strong></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><strong><%= @user.email %></strong></td>
+    </tr>
+    <tr>
+      <td>ID</td>
+      <td><strong><%= @user.id %></strong></td>
+    </tr>
+    <tr>
+      <td>Last request at</td>
+      <td><strong><%= @user.last_request_at %> (<%= time_ago_in_words(@user.last_request_at) %>)</strong></td>
+    </tr>
+    <tr>
+      <td>Current login IP</td>
+      <td><strong><%= @user.current_login_ip %></strong></td>
+    </tr>
+    <tr>
+      <td>Last login IP</td>
+      <td><strong><%= @user.last_login_ip %></strong></td>
+    </tr>
+    <tr>
+      <td>Failed login count</td>
+      <td><strong><%= @user.failed_login_count %></strong></td>
+    </tr>
+    <tr>
+      <td>Succ. login count</td>
+      <td><strong><%= @user.login_count %></strong></td>
+    </tr>
+    <tr>
+      <td>Registered</td>
+      <td><strong><%= @user.created_at %></strong></td>
+    </tr>
+  </table>
+<% end %>

@@ -1,0 +1,13 @@
+<div id="blog">
+  <div id="blog-description">
+    Frequency is a blog about gaming, tech and Frequency
+  </div>
+
+  <% @blogs.each do |blog| %>
+    <div class="blog-post">
+      <h1><%= link_to blog.title, blog %></h1>
+      <h2>written by <%= link_to blog.user.username, blog.user %> <i><%= time_ago_in_words(blog.created_at) %> ago</i> with <strong><%= pluralize(blog.likes.size, 'life') %></strong>
+      </h2>
+    </div>
+  <% end %>
+</div>

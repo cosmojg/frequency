@@ -1,0 +1,50 @@
+/*-------------------------------------------------
+VARIABLES
+-------------------------------------------------*/
+
+/* UNIVERSAL COLORS */
+$black:                       #000;
+$white:                       #fff;
+$green:                       #79bf81;
+$lightGreen:                  #ceead2;
+
+/* THEME COLORS - BLUE */
+$baseColor:                   #3f8fa8;
+$baseDarkened:                #315772;
+$baseLightened:               lighten($baseColor, 45%);
+$baseBackground:              #fff;
+$linkColor:                   $baseColor;
+$linkColorActive:             darken($baseColor, 10%);
+$h1:                          #515151;
+
+/* THEME COLORS - CYAN 
+$baseColor:                   #4d899d;
+$linkColor:                   #617d81;
+$linkColorActive:             #a11414;
+$h1:                          lighten($baseColor, 25%);
+*/
+
+/* TEXT COLOR - Grays */
+$grayDark:                    #444; // Good gray-on-gray text color
+$gray:                        #777; // Default gray-on-white text color
+$grayLight:                   #aaa;
+$grayLighter:                 #d8d8d8;
+
+/* SEPARATION BORDER COLORS */
+$borderNormal:                #dfdfdf;
+$borderLight:                 #eee;
+
+/* DEFAULT FONTS */
+$font-stack:                  "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif!important;
+
+/* FONT SIZES */
+$baseLineHeight:              1.5;
+$baseFontSize:                16px;
+$inputBorderRadius:           2px;
+
+/* INPUTS */
+$inputBackground:             #fff;
+$inputBorder:                 lighten($baseColor, 40%);
+$inputDisabledBackground:     #ccc;
+
+$contentWidth: 1030px;

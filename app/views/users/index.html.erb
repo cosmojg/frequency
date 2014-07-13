@@ -1,0 +1,27 @@
+<%= link_to 'New User', new_user_path, class: 'btn btn-success', style: 'float:right' %>
+<h1>Listing users</h1>
+<h3>User count: <%= @users.count %></h3>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr style="text-align:left">
+    <th>ID</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Created At</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr height="40">
+    <td width="50"><%= user.id %></td>
+    <td width="200"><%= link_to user.username, user %></td>
+    <td width="300"><%= user.email %></td>
+    <td width="200"><%= time_ago_in_words(user.created_at) %> ago</td>
+    <td width="80"><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td width="80"><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

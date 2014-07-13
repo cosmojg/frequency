@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: boards
+#
+#  id         :integer          not null, primary key
+#  title      :string(50)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  title: MyString
+
+two:
+  id: 1
+  title: MyString

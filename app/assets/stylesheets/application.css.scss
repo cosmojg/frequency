@@ -1,0 +1,467 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import "compass/css3";
+@import "mixins";
+@import "variables";
+
+// IE8: Make HTML 5 elements display block-level for consistent styling
+article, aside, details, figcaption, figure, footer,
+header, hgroup, menu, nav, section { display: block; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+a {
+  color: $linkColor;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover { text-decoration: underline; }
+  &:active { color: $baseColor; }
+  &.destroy { color: #800; }
+}
+h1, h2, h3 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+h1 {
+  font-weight: 300;
+  line-height: 1.2;
+  color: $h1;
+  padding-bottom: 0px;
+  font-size: 34px;
+}
+h2 {
+  color: $baseColor;
+  font-size: 25px;
+  line-height: 1.2;
+  padding-bottom: 10px;
+}
+hr {
+  border: 0;
+  width: 100%;
+  color: #ddd;
+  background-color: #ddd;
+  height: 1px;
+}
+b, strong { font-weight: bold; }
+i, em { font-style: italic; }
+html { background-color: $baseBackground; }
+body {
+  font-family: $font-stack;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow-y: scroll;
+}
+::-moz-selection {
+  background: lighten($baseColor, 30%);
+  color: #000;
+  text-shadow: none;
+}
+::selection {
+  background: lighten($baseColor, 30%);
+  color: #000;
+  text-shadow: none;
+}
+.clearfix {
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after { clear: both; }
+}
+
+#header-background {
+  background: image-url("background.png") $baseColor;
+  @include box-shadow(0 2px 3px rgba(0,0,0,0.15) );
+  border-bottom: 1px solid darken($baseColor, 10%);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+
+  .header-divider {
+    width: 100%;
+    border-top: 1px solid darken($baseColor, 6%);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    height: 1px;
+    display: block;
+  }
+  #header-additional-content {
+    width: $contentWidth;
+    margin: 0 auto;
+    padding: 10px 20px 15px 20px;
+
+    h2 {
+      color: #fff;
+      font-size: 20px;
+      @include text-shadow(rgba(0, 0, 0, 0.2) 0 -2px);
+    }
+  }
+  #header {
+    color: #fff;
+    width: $contentWidth;
+    margin: 0 auto;
+    height: 70px;
+    padding: 20px 20px;
+    @include text-shadow(rgba(0, 0, 0, 0.2) 0 -2px);
+
+    a {
+      color: #fff;
+
+      &:hover {
+        text-decoration: none;
+        color: lighten($baseColor, 45%);
+      }
+    }
+    #beta-tag {
+      float: left;
+      display: none;
+      padding: 12px 0 0 7px;
+      color: lighten($baseColor, 45%);
+    }
+    #wtf-logo {
+      width: 32px;
+      height: 28px;
+      background: image-url("global-sprite.png");
+      background-position: 0 -57px;
+      margin-right: 10px;
+      float: left;
+    }
+    #loading {
+      width: 24px;
+      height: 24px;
+      float: left;
+      margin: 5px 10px 0 8px;
+      display: none;
+    }
+    h1 {
+      font-weight: normal;
+      color: #fff;
+      font-weight: bold;
+      float: left;
+      font-size: 28px;
+    }
+    #navigation-links {
+      float: right;
+      font-size: 17px;
+
+      .userbox {
+        padding: 42px 20px 15px 20px;
+      }
+      #header-avatar {
+        width: 40px;
+        height: 40px;
+        overflow: hidden;
+        @include border-radius(40px);
+        float: left;
+        margin: -10px 10px 0 0;
+
+        img {
+          height: 100%;
+        }
+      }
+      #header-username {
+        float: left;
+        font-weight: bold;
+        font-size: 18px;
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .navigation-icons {
+        width: 16px;
+        height: 18px;
+        background-image: image-url("global-sprite.png");
+        display: inline-block;
+        margin: 0 7px -2px 0;
+      }
+      #home-icon { background-position: 0 0; }
+      #picture-icon { background-position: 0 -19px; }
+      #boards-icon { background-position: -18px -38px; }
+      #frequency-icon { background-position: 0 -38px; }
+
+      a {
+        float: left;
+        padding: 42px 20px 25px 20px;
+        margin-top: -37px;
+        border-right: 1px solid darken($baseColor, 6%);
+        @include box-shadow(rgba(255,255,255,0.15) 1px 0 0 0 inset);
+
+        &:first-child {
+          border-left: 1px solid darken($baseColor, 6%);
+        }
+        &:last-child {
+          @include box-shadow(rgba(255,255,255,0.15) 1px 0 0 0 inset,
+            rgba(255,255,255,0.15) -1px 0 0 0 inset);
+        }
+        &:hover {
+          background-color: rgba(255,255,255,0.05);
+          color: #fff;
+        }
+        &:active {
+          background-color: rgba(255,255,255,0.1);
+        }
+      }
+    }
+    aside {
+      margin: -2px 0 0 20px;
+      float: right;
+
+      .btn { 
+        text-transform: uppercase;
+        &:first-child { margin-right: 7px; }
+      }
+    }
+  }
+}
+.go-pro-dropdown {
+  @include background(linear-gradient(top, darken(#85c285, 5%), darken(#85c285, 15%)));
+  color: #fff !important;
+  font-weight: bold;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  @include box-shadow(rgba(0,0,0,0.3) 0 1px 2px inset);
+  @include text-shadow(darken(#85c285, 20%) 0 -2px);
+  margin: 5px 0 -4px 0;
+  @include border-radius(0 0 1px 1px);
+
+  &:hover { @include opacity(0.9); }
+}
+
+#content {
+  min-height: 200px;
+  width: $contentWidth;
+  margin: 0 auto;
+  padding: 95px 20px 50px 20px;
+}
+
+footer {
+  background-color: #fff;
+  color: #777;
+  width: 100%;
+  padding: 5px 0;
+  border-top: 1px solid darken(#eee, 5%);
+
+  a { color: #777; }
+
+  #footer-container {
+    width: $contentWidth;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    span {
+      float: left;
+      display: block;
+      margin-top: 15px;
+    }
+
+    #footer-links {
+      list-style: none;
+      float: right;
+
+      li {
+        float: right;
+        margin-left: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+/*-------------------------------------------------
+FLASH NOTICES
+-------------------------------------------------*/
+
+.flash-notice, #errorExplanation {
+  padding: 10px 15px;
+  margin: 0 0 15px 0;
+  @include border-radius(3px);
+
+  header {
+    font-size: 23px;
+    line-height: 1.2;
+    float: left;
+    margin-top: 7px;
+    color: darken($green, 30%);
+  }
+}
+.flash-notice-error, #errorExplanation {
+  background-color: #e8dddd;
+  @include box-shadow(rgba(255,255,255,1) 0 1px 0,
+                      darken(#e8dddd, 10%) 0 1px 0 inset);
+  color: darken(#e8dddd, 70%);
+}
+.flash-notice-success {
+  background-color: #cdf3d1;
+  @include box-shadow(rgba(255,255,255,1) 0 1px 0,
+                      darken(#cdf3d1, 10%) 0 1px 0 inset);
+  color: darken(#cdf3d1, 70%);
+}
+
+/*-------------------------------------------------
+CONTROL BAR
+-------------------------------------------------*/
+.control-icon {
+  background: image-url("global-sprite.png");
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-right: 10px;
+  &:first-child { margin-right: 0; }
+  &:hover { @include opacity(0.8); }
+}
+.edit { background-position: -1px -158px; }
+.delete { background-position: -18px -158px; }
+.quote { background-position: -1px -176px; }
+
+/*-------------------------------------------------
+1UP BUTTON
+-------------------------------------------------*/
+.oneup-button {
+  background-color: $green;
+  display: inline-block;
+  @include text-shadow(darken($green, 20%) 0 -1px);
+  color: #fff;
+  margin: -1px -5px 0 0;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 3px 5px;
+  @include border-radius(3px);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    text-decoration: none;
+    background-color: darken($green, 5%);
+  }
+  &:active {
+    color: #fff;
+    background-color: darken($green, 10%);
+  }
+}
+.oneup-button-clear {
+  float: right;
+  font-size: 14px !important;
+  padding: 2px 4px;
+  font-weight: bold;
+  margin: -3px 0 0 10px;
+  background-color: #fff;
+  border: 1px solid lighten($green, 20%);
+  color: darken($green, 10%);
+  @include border-radius(3px);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    border: 1px solid lighten($green, 10%);
+    color: darken($green, 20%);
+    text-decoration: none;
+  }
+}
+.oneup-voted {
+  background-color: $green;
+  border: 1px solid $green;
+  color: #fff;
+
+  &:hover {
+    background-color: darken($green, 5%);
+    border: 1px solid darken($green, 5%);
+    color: #fff;
+  }
+}
+
+/*-------------------------------------------------
+LATEST ACTIVITY
+-------------------------------------------------*/
+.fake-link {
+  color: $linkColor;
+  font-weight: bold;
+}
+#latest-activity {
+  width: 100%;
+
+  h2 { color: #646464;}
+  a.activity-item {
+    font-size: 17px;
+    padding: 15px 15px 15px 10px;
+    display: block;
+    border-top: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
+    color: #555;
+    @include box-shadow(#fff 0 1px inset);
+    background-color: lighten(#f2f2f2, 3%);
+    @include transition(padding .1s linear, 
+                        background-color .1s linear);
+
+    &:nth-child(even) { background-color: #fff; }
+    &:hover {
+      @include transition(padding .1s linear, 
+                          background-color .1s linear);
+      text-decoration: none;
+      border-top: 1px solid #e7e7e7;
+      padding-left: 15px;
+      padding-right: 10px;
+    }
+    &:active { background-color: darken(#f2f2f2, 1%); }
+    
+    &:last-child { border-bottom: 1px solid #e7e7e7; }
+    .activity-avatar {
+      width: 45px;
+      height: 45px;
+      float: left;
+      @include border-radius(30px);
+      overflow: hidden;
+      margin-right: 15px;
+
+      img { height: 100%; }
+    }
+    .activity-content {
+
+      a { font-weight: bold; }
+      .activity-time {
+        padding-top: 5px;
+        color: #929292;
+      }
+    }
+  }
+}

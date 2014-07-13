@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <title>Frequency - <%= title %></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag "favicon.png" %>
+  <script type="text/javascript" src="//use.typekit.net/bsv1nbn.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <meta name="viewport" content="width=device-width">
+
+  <% if Rails.env.production? %>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-37257873-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  <% end %>
+</head>
+<body>
+
+<div id="header-background">
+  <div id="header" class="clearfix">
+    <div id="wtf-logo"></div>
+    <div id="loading">
+      <%= image_tag 'loading.gif' %>
+    </div>
+    <h1><%= link_to "Frequency", :overview %></h1>
+    <div id="beta-tag">beta</div>
+
+    <% unless logged_in? %>
+      <aside class="clearfix">
+        <%= link_to "Login", :login, class: "btn btn-primary" %>
+        <%= link_to "Sign Up", :signup, class: "btn btn-success" %>
+      </aside>
+    <% end %>
+
+    <div id="navigation-links" class="clearfix">
+      <%= link_to(:overview) do %>
+        <span id="home-icon" class ="navigation-icons"></span>
+        Home
+      <% end %>
+      <%= link_to(boards_path) do %>
+        <span id="boards-icon" class ="navigation-icons"></span>
+        Boards
+      <% end %>
+      <%= link_to(pictures_path) do %>
+        <span id="picture-icon" class ="navigation-icons"></span>
+        Pictures
+      <% end %>
+      <%= link_to(blogs_path) do %>
+        <span id="frequency-icon" class ="navigation-icons"></span>
+        Frequency
+      <% end %>
+      <% if logged_in? %>
+        <a class="userbox" data-dropdown="#dropdown-1">
+          <div id="header-avatar"><%= image_tag current_user.avatar.url(:thumb) %></div>
+          <div id="header-username"><%= current_user.username %></div>
+        </a>
+      <% end %>
+    </div>
+
+    <div id="mobile-navigation" class="visible-phone">
+      <a class="userbox" data-dropdown="#dropdown-2">Menu</a>
+    </div>
+  </div>
+</div>
+
+<div id="content">
+  <% if flash[:notice] %>
+    <div class="flash-notice flash-notice-success">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <% if flash[:error] %>
+    <div class="flash-notice flash-notice-error">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <%= render 'layouts/registration_teaser' %>
+
+  <%= yield %>
+</div>
+
+<footer>
+  <div id="footer-container" class="clearfix">
+    <span class="hidden-phone"><a href="#content">Top of page</a></span>
+
+    <ul id="footer-links" class="clearfix">
+      <li><%= link_to "Frequency", blogs_path %></li>
+      <li><%= link_to "Pictures", pictures_path %></li>
+      <li><%= link_to "Boards", boards_path %></li>
+      <li><%= link_to "Home", :overview %></li>
+    </ul>
+  </div>
+</footer>
+
+<% if logged_in? %>
+  <div id="dropdown-1" class="dropdown-menu has-tip">
+      <ul>
+          <li><%= link_to "View my profile", current_user %></li>
+          <li><%= link_to "Edit Profile", edit_user_path(current_user.id) %></li>
+          <li><%= link_to "Logout", :logout %></li>
+          <li style="display:none"><a href="#" class="go-pro-dropdown">Upgrade account</a></li>
+      </ul>
+  </div>
+<% end %>
+
+<div id="dropdown-2" class="dropdown-menu">
+    <ul>
+        <li><%= link_to "Home", :overview %></li>
+        <li><%= link_to "Boards", boards_path %></li>
+        <li><%= link_to "Pictures", pictures_path %></li>
+        <li><%= link_to "Frequency", blogs_path %></li>
+
+        <% if logged_in? %>
+          <li><%= link_to "View my profile", current_user %></li>
+          <li><%= link_to "Edit Profile", edit_user_path(current_user.id) %></li>
+          <li><%= link_to "Logout", :logout %></li>
+        <% else %>
+          <li><%= link_to "Login", :login %></li>
+          <li><%= link_to "Sign Up", :signup %></li>
+        <% end %>
+    </ul>
+</div>
+
+<% if content_for? :init_javascript %>
+  <script type="text/javascript">
+    <%= yield :init_javascript %>
+  </script>
+<% end %>
+
+</body>
+</html>

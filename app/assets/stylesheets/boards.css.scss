@@ -1,0 +1,199 @@
+@import "compass/css3";
+@import "mixins";
+@import "variables";
+
+#forum-header {
+  margin: -5px 0 15px 0;
+
+  h1 { font-size: 25px; }
+  #mark-as-read {
+    float: right;
+    padding-top: 7px;
+  }
+}
+
+.forum {
+  background-color: #fafafa;
+  border: 1px solid #e1e1e1;
+  @include border-radius(3px);
+  @include box-shadow(#fff 0 1px 0 0 inset);
+  @include letterpress(1);
+  color: #909090;
+  margin-bottom: 10px;
+
+
+  .forum-name {
+    padding: 10px 13px;
+    display: block;
+    @include border-radius(3px);
+
+    .forum-badge {
+      width: 32px;
+      height: 33px;
+      background-image: image-url("global-sprite.png");
+      float: left;
+      color: #fff;
+      text-align: center;
+      @include text-shadow(darken($baseColor, 2%) 0 -1px);
+      font-weight: bold;
+      font-size: 20px;
+      padding-top: 3px;
+      line-height: 18px;
+      margin-bottom: -3px;
+    }
+    .badge-unread {
+      background-position: -1px -88px;
+    }
+    .badge-read {
+      background-position: -1px -124px;
+    }
+    .name-unread {
+      color: $baseColor;
+    }
+    .name-read {
+      font-weight: normal;
+      a { color: #626262; }
+      &:hover { text-decoration: none; }
+    }
+    h2 {
+      float: left;
+      padding: 2px 0 0 10px;
+      font-size: 22px;
+    }
+    aside {
+      float: right;
+      font-size: 15px;
+      padding-top: 7px;
+      color: #909090;
+    }
+    .new-conversation-button {
+      color: #68a76d;
+      font-weight: bold;
+      border-bottom: 1px solid lighten(#68a76d, 30%);
+      &:hover {
+        text-decoration: none;
+        border-bottom: 1px solid #68a76d;
+      }
+    }
+  }
+  .forum-topics {
+    border-top: 1px solid #e1e1e1;
+    @include box-shadow(#fff 0 1px 0 0 inset);
+
+    a.forum-topic {
+      h3 {
+        float: left;
+        margin: 0;
+        font-size: 18px;
+        font-weight: normal;
+      }
+    }
+  }
+  a.load-more-topics {
+    border-top: 1px solid #e1e1e1;
+    padding: 10px 20px;
+    font-weight: bold;
+    display: block;
+    @include box-shadow(#fff 0 1px 0 0 inset);
+    color: #909090;
+
+    &:hover {
+      background-color: darken(#fafafa, 3%);
+      @include box-shadow(#fff 0 1px 0 0 inset);
+      @include transition(0.1s linear background-color, 0.1s linear box-shadow);
+      text-decoration: none;
+    }
+  }
+}
+
+/*-------------------------------------------------
+Universal board styles
+-------------------------------------------------*/
+.forum-blankslate {
+  padding: 10px 20px;
+  font-style: italic;
+}
+a.forum-topic {
+  padding: 10px 15px;
+  font-size: 15px;
+  display: block;
+  width: 98%;
+  margin: 0 auto;
+  @include border-radius(3px);
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken(#fafafa, 3%);
+  }
+  &:active {
+    background-color: darken(#fafafa, 6%);
+  }
+
+  &:first-child { margin-top: 5px; }
+  &:last-child { margin-bottom: 5px; }
+
+  .name-unread {
+    color: $baseColor;
+    font-weight: bold;
+  }
+  .name-read {
+    color: #626262;
+    font-weight: normal;
+  }
+  .forum-topic-badge {
+    float: left;
+    width: 16px;
+    height: 16px;
+    background-position: -18px -18px;
+    margin-right: 10px;
+    margin-top: 1px;
+    background-image: image-url("global-sprite.png");
+  }
+  .topic-badge-read {
+    background-position: -18px -18px;
+  }
+  .topic-badge-unread {
+    background-position: -18px 0px;
+  }
+  .forum-topic-details {
+    padding-top: 2px;
+    float: right;
+    color: #909090;
+  }
+  .forum-topic-name {
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 430px;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  .forum-topic-author {
+    font-size: 16px;
+    color: #909090;
+  }
+}
+
+/*-------------------------------------------------
+Styling for board#show
+-------------------------------------------------*/
+#board-show {
+  border-top: 1px solid #e1e1e1;
+  padding-top: 5px;
+  margin-top: 5px;
+
+  a.forum-topic {
+    width: 100%;
+  }
+  h3 {
+    float: left;
+    margin: 0;
+    font-size: 18px;
+    font-weight: normal;
+  }
+  .forum-topic-details {
+    padding-top: 2px;
+    float: right;
+    color: #909090;
+  }
+}

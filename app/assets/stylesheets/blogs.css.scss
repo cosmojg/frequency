@@ -1,0 +1,107 @@
+@import "compass/css3";
+@import "mixins";
+@import "variables";
+
+#blog-controls {
+  float: right;
+}
+#blog {
+  #blog-description {
+    text-align: center;
+    font-size: 19px;
+    color: #a9a9a9;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed darken(#e7e7e7, 5%);
+  }
+  .blog-post {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed darken(#e7e7e7, 5%);
+    margin-bottom: 10px;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    h1 {
+      font-size: 32px;
+      text-align: center;
+      padding: 10px 0 10px 0;
+    }
+    h2 {
+      font-size: 22px;
+      text-align: center;
+      color: #a9a9a9;
+      margin-bottom: 10px;
+      a { color: #a9a9a9; }
+      .oneup-button {
+        color: #fff;
+      }
+    }
+    .blog-content {
+      font-size: 19px;
+      line-height: 1.5;
+      width: 680px;
+      margin: 0 auto;
+      word-wrap: break-word;
+
+      h1, h2, h3 { text-align: left !important; }
+      h1 {
+        font-size: 23px;
+        text-transform: uppercase;
+        color: #6d7b8d;
+        padding: 5px 0 5px 0;
+        margin-bottom: 8px;
+        border-bottom: 2px solid #eee;
+      }
+      h2 {
+        color: #777;
+        font-weight: bold;
+        padding: 0;
+      }
+      p {
+        margin: 0 0 15px 0;
+      }
+      img {
+        @include border-radius(3px);
+      }
+      ul {
+        p { margin: 0; }
+      }
+    }
+  }
+
+  #blog-post-extras {
+    font-size: 22px;
+    width: 680px;
+    margin: 0 auto;
+
+    #blank-slate {
+      font-size: 18px;
+      font-style: italic;
+      color: #888;
+    }
+    h3 {
+      padding-bottom: 20px;
+      font-weight: bold;
+    }
+    .liked-by-user {
+      padding: 10px 0;
+      border-bottom: 1px solid #e7e7e7;
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: none;
+      }
+      .user-avatar {
+        width: 20px;
+        height: 20px;
+        @include border-radius(20px);
+        overflow: hidden;
+        display: inline-block;
+
+        img{ width: 100%; }
+      }
+    }
+  }
+}

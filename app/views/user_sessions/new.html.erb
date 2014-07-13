@@ -1,0 +1,22 @@
+<% title 'Login' %>
+
+<div class="clearfix">
+  <div id="login-form">
+    <h1>Login</h1>
+    <%= render 'form' %>
+  </div>
+
+  <div id="registration-prompt">
+    <h1>Don't have an account?</h1>
+    <h2>Registering only takes a few seconds.</h2>
+
+    <ul>
+      <li>Keep track of conversations</li>
+      <li>Share & like photos</li>
+      <li>Find and start online games</li>
+      <li>Get to know other gamers</li>
+      <li>Be part of an actively developed community</li>
+    </ul>
+    <p><%= link_to "Sign up now", :signup, class: 'btn btn-success btn-large' %></p>
+  </div>
+</div>

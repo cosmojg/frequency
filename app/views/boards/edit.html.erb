@@ -1,0 +1,9 @@
+<h1>Editing board</h1>
+
+<%= render 'form' %>
+
+<br /><br />
+<%= link_to "", @board, method: :delete, data: { confirm: 'Are you sure?' }, class: 'control-icon delete' %>
+
+<%= link_to 'Show', @board %> |
+<%= link_to 'Back', boards_path %>

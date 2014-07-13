@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: blogs
+#
+#  id                  :integer          not null, primary key
+#  title               :string(255)
+#  body                :text
+#  user_id             :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  banner_file_name    :string(255)
+#  banner_content_type :string(255)
+#  banner_file_size    :integer
+#  banner_updated_at   :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  title: MyString
+  body: MyText
+  user_id: 1
+
+two:
+  id: 1
+  title: MyString
+  body: MyText
+  user_id: 1

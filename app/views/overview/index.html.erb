@@ -1,0 +1,39 @@
+<div id="featured-posts" class="clearfix">
+  <% picked = "blue" %>
+  <%= render partial: "featured_frequency",
+                      collection: ["blue", "red", "green"] %>
+</div>
+
+<div id="latest-pictures" class="clearfix">
+  <% @pictures.each do |picture| %>
+    <% photo_path = picture.photo_url.url(:medium) %>
+
+    <%= link_to picture, class: 'picture-frame-container' do %>
+      <div class="black-overlay"></div>
+      <div class="picture-frame" style="background-image: url('<%= image_path(photo_path) %>');"></div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="clearfix">
+  <div id="homepage-left-side">
+    <div id="latest-activity">
+      <% @latest_activity.each do |activity| %>
+        <%= render "overview/activity", activity: activity %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="users-online" class="hidden-phone">
+    <h2>People online (<%= @users_online.count %>)</h2>
+    <% @users_online.each do |user| %>
+      <div class="user-online">
+        <div class="user-online-avatar">
+          <%= image_tag user.avatar.url(:thumb) %>
+        </div>
+        <%= link_to user.username, user %>
+        <span class="time-ago"><%= time_ago_in_words(user.last_request_at) %></span>
+      </div>
+    <% end %>
+  </div>
+</div>

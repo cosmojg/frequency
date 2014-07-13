@@ -1,0 +1,34 @@
+<% color = featured_frequency %>
+
+<% if color == "blue" && @first_blog %>
+  <% banner_path = @first_blog.banner.url() %>
+  <%= link_to @first_blog, class: 'article-box', style: 'background-image: url(' + banner_path + ')'.html_safe do %>
+    <div id="<%= color %>-overlay" class="article-overlay">
+      <%= @first_blog.title %>
+      <small>by <%= @first_blog.user.username %> 
+        <%= time_ago_in_words(@first_blog.created_at) %> ago</small>
+    </div>
+  <% end %>
+<% end %>
+
+<% if color == "red" && @second_blog %>
+  <% banner_path = @second_blog.banner.url() %>
+  <%= link_to @second_blog, class: 'article-box', class: 'article-box', style: 'background-image: url(' + banner_path + ')'.html_safe do %>
+    <div id="<%= color %>-overlay" class="article-overlay">
+      <%= @second_blog.title %>
+      <small>by <%= @second_blog.user.username %> 
+        <%= time_ago_in_words(@second_blog.created_at) %> ago</small>
+    </div>
+  <% end %>
+<% end %>
+
+<% if color == "green" && @last_blog %>
+  <% banner_path = @last_blog.banner.url() %>
+  <%= link_to @last_blog, class: 'article-box', class: 'article-box', style: 'background-image: url(' + banner_path + ')'.html_safe do %>
+    <div id="<%= color %>-overlay" class="article-overlay">
+      <%= @last_blog.title %>
+      <small>by <%= @last_blog.user.username %> 
+        <%= time_ago_in_words(@last_blog.created_at) %> ago</small>
+    </div>
+  <% end %>
+<% end %>

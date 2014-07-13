@@ -1,0 +1,50 @@
+<div id="forum-header" class="clearfix">
+  <% if can? :mark_all_as_read, Board %>
+    <div id="mark-as-read"><%= link_to "Mark all as read", [:mark_all_as_read, Board] %></div>
+  <% end %>
+  <h1>All boards</h1>
+</div>
+
+<% @boards.each do |board| %>
+  <div class="forum">
+    <div class="forum-name clearfix">
+      <%
+        unread = 0
+        if current_user
+          unread = current_user.get_unread_count_for board
+        end
+      %>
+      <% if unread > 0 %>
+        <div class="forum-badge badge-unread"><%= unread %></div>
+        <h2 class="name-unread"><%= link_to board.title, board %></h2>
+      <% else %>
+        <div class="forum-badge badge-read"></div>
+        <h2 class="name-read"><%= link_to board.title, board %></h2>
+      <% end %>
+
+      <aside>
+        <% if can? :create, Conversation %>
+          <%= link_to "New conversation", new_board_conversation_path(board, @conversation), class: 'new-conversation-button hidden-phone' %>
+          <%= link_to "Add new", new_board_conversation_path(board, @conversation), class: 'new-conversation-button visible-phone' %>
+        <% end %>
+      </aside>
+    </div>
+
+    <div class="forum-topics">
+      <%= render partial: "conversations/summary",
+          collection: board.conversations.order_by_last_reply.limit(4).includes(:user) %>
+
+      <% if board.conversations.empty? %>
+        <div class="forum-blankslate">
+          No conversations have been started. Yawn, what a snoozefest.
+        </div>
+      <% end %>
+    </div>
+
+    <% if board.conversations.count > 5 %>
+      <%= link_to(board, class: 'load-more-topics') do %>
+        Load more conversations...
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,42 @@
+<%= form_for @blog, :html => { :multipart => true } do |f| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+      <% @blog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :user_id, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :user_id, class: 'input-xlarge' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :title, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :title, class: 'input-xlarge' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :body, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_area :body, rows: 6, class: 'input-xxlarge auto-expand' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label 'Homepage banner', class: "control-label" %><br />
+    <%= f.file_field :banner %>
+    <span class="help-block">Recommended size 330x235 and less than 500kb</span>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<% conversation = summary # the variable has the same name as the partial name %>
+<% last_post = conversation.last_post %>
+
+<% unread = conversation.unread_for?(current_user) %>
+<% read_label = if unread then 'unread' else 'read' end %>
+<% page_number = last_post.page_number %>
+
+<%= link_to board_conversation_path(conversation.board, conversation, page: page_number, anchor: "post-#{last_post.id}"), class: 'forum-topic clearfix' do %>
+  <div class="forum-topic-badge topic-badge-<%= read_label %>"></div>
+  <h3 class="name-<%= read_label %>">
+    <span class="forum-topic-name"><%= conversation.title %></span>
+    <span class="forum-topic-author"> by <%= conversation.user.username %></span>
+  </h3>
+  <div class="forum-topic-details">
+    Last post by <%= last_post.user.username %> <%= time_ago_in_words(conversation.last_reply_at) %> ago
+     - <strong><%= pluralize(conversation.posts.size - 1, "reply") %></strong>
+  </div>
+<% end %>

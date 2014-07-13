@@ -1,0 +1,19 @@
+@function black($opacity){
+    @return rgba(0, 0, 0, $opacity)
+}
+@function white($opacity){
+    @return rgba(255, 255, 255, $opacity)
+}
+
+/* Will make any box look embossed, first value is the bottom
+    white part and the second value is the top dark part.
+    Values around 0.15 work well */
+@mixin box-emboss($opacity, $opacity2){
+  box-shadow: white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
+}
+
+/* Make any text look like it's pressed into the background.
+    Values around 1 are good for light BGs and 0.2 for dark */
+@mixin letterpress($opacity){
+    text-shadow: white($opacity) 0 1px 0;
+}

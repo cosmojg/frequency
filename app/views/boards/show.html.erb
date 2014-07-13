@@ -1,0 +1,25 @@
+<% title @board.title %>
+
+<div id="forum-posts">
+  <header class="clearfix">
+    <div id="header-left">
+      <%= link_to '&laquo; Back to all boards'.html_safe, boards_path %>
+      <h1><%= @board.title %></h1>
+    </div>
+
+    <aside>
+      <%= link_to "New Conversation", new_board_conversation_path(@board, Conversation.new),
+        class: 'btn btn-success' %>
+    </aside>
+  </header>
+</div>
+
+<div id="board-show">
+  <%= render partial: "conversations/summary", collection: @conversations %>
+
+  <% if @conversations.empty? %>
+    <div class="forum-blankslate">
+      No conversations have been started. Yawn, what a snoozefest.
+    </div>
+  <% end %>
+</div>

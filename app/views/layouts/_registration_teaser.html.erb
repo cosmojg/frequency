@@ -1,0 +1,18 @@
+<% unless logged_in? %>
+<% if params[:action] == 'index' %>
+<% unless params[:controller] == 'blogs' %>
+
+<div id="registration-teaser" class="clearfix">
+  <%= link_to "Sign up now", :signup, class: 'large-signup-button hidden-phone' %>
+  <div id="mario-head"></div>
+  <h2>Hello there, stranger.</h2>
+  <div id="teaser-text">
+    Do you love online gaming? Of course you do.<br />
+    We'll help you meet other people who do, too.
+  </div>
+  <%= link_to "Sign up now", :signup, class: 'large-signup-button visible-phone' %>
+</div>
+
+<% end %>
+<% end %>
+<% end %>

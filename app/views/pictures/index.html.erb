@@ -1,0 +1,27 @@
+<div id="picture-viewer" class="clearfix">
+  <header class="clearfix">
+    <div id="left-header">
+      <h1>Pictures</h1>
+      <div id="picture-sort">
+        <% if params[:sort] == "popularity" %>
+        <%= link_to "New", pictures_path %> - 
+        <strong>Popular</strong>
+        <% else %>
+        <strong>New</strong> - 
+        <%= link_to "Popular", "?sort=popularity" %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if can? :create, Picture %>
+        <aside>
+          <%= link_to 'Share Picture', new_picture_path, class: 'btn btn-success' %>
+        </aside>
+    <% end %>
+  </header>
+
+  <% @pictures.each do |picture| %>
+    <% photo_path = picture.photo_url.url(:medium) %>
+    <%= link_to '', picture, class: 'picture-frame', style: 'background-image: url(' + photo_path + ')'.html_safe %>
+  <% end %>
+</div>

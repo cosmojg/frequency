@@ -1,0 +1,47 @@
+<%= link_to '&laquo; Back to all posts'.html_safe, blogs_path %>
+
+<% if can? :manage, Blog %>
+  <div id="blog-controls">
+    <%= link_to '', edit_blog_path(@blog), class: 'control-icon edit' %>
+    <%= link_to '', @blog, method: :delete, class: 'control-icon delete', data: { confirm: 'Are you sure?' } %>
+  </div>
+<% end %>
+
+<div id="blog">
+  <div class="blog-post">
+    <h1><%= @blog.title %></h1>
+    <h2>written by <%= link_to @blog.user.username, @blog.user %> <i><%= time_ago_in_words(@blog.created_at) %> ago</i> with <strong><%= pluralize(@blog.likes.size, 'life') %></strong>
+
+      <% if can? :like, @blog %>
+        <% if !@current_user.voted_up_on? @blog %>
+          <%= link_to "+1UP", [:like, @blog], class: 'oneup-button' %>
+        <% else %>
+          <%= link_to "Undo", [:unlike, @blog], class: 'oneup-button' %>
+        <% end %>
+      <% end %>
+    </h2>
+
+    <div class="blog-content">
+      <%= markdown(@blog.body) %>
+    </div>
+  </div>
+
+  <div id="blog-post-extras">
+    <h3>People who 1UP'd this article</h3>
+
+    <% if @blog.votes.up.size == 0 %>
+      <span id="blank-slate">
+        Nobody has 1UP'd this article. Be the first!
+      </span>
+    <% end %>
+
+    <% @blog.votes.up.by_type(User).voters.each do |user| %>
+      <div class="liked-by-user">
+        <div class="user-avatar">
+          <%= image_tag user.avatar.url(:thumb) %>
+        </div>
+        <%= link_to user.username, user %>
+      </div>
+    <% end %>
+  </div>
+</div>

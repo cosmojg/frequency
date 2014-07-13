@@ -1,0 +1,143 @@
+<%= title @board.title + " - " + @conversation.title %>
+
+<% content_for :init_javascript do %>
+    Conversation.initialize(<%= @board.id %>, <%= @conversation.id %>);
+    Conversation.ajaxLikes();
+<% end %>
+
+<div id="forum-posts">
+
+  <header class="clearfix">
+    <div id="header-left">
+      <%= link_to "All boards", boards_path %> &raquo; <%= link_to @board.title, @board %>
+    </div>
+
+    <aside>
+      Page <%= @posts.current_page %> of <%= @posts.total_pages %>
+    </aside>
+  </header>
+
+  <div id="conversation-title"><%= @conversation.title %></div>
+
+  <div class="clearfix">
+  <% if @posts.previous_page %>
+  <div id="left-navigation">
+    <%= link_to '&laquo; prev'.html_safe, board_conversation_path(@conversation.board, @conversation, page: @posts.previous_page), class: 'post-buttons' %>
+    <% unless @posts.total_pages <= 2 %>
+    <%= link_to 'to start', board_conversation_path(@conversation.board, @conversation, page: 1) %>
+    <% end %>
+  </div>
+  <% end %>
+
+  <% if @posts.next_page %>
+  <div id="right-navigation">
+    <%= link_to 'next &raquo;'.html_safe, board_conversation_path(@conversation.board, @conversation, page: @posts.next_page), class: 'post-buttons' %>
+    <% unless @posts.total_pages <= 2 %>
+      <%= link_to 'to end', board_conversation_path(@conversation.board, @conversation, page: @posts.total_pages) %>
+    <% end %>
+  </div>
+  <% end %>
+  </div>
+
+  <!-- Post reply -->
+  <div>
+    <% @posts.each do |post| %>
+      <div class="post" id="post-<%= post.id %>">
+        <div class="post-avatar">
+          <%= link_to image_tag(post.user.avatar.url(:thumb)), post.user %>
+        </div>
+
+        <div class="post-info">
+          <% if post.user.admin? %>
+            <%= link_to post.user.username, post.user, class: "admin-color" %>
+          <% else %>
+            <% if post.user.moderator? %>
+              <%= link_to post.user.username, post.user, class: "mod-color" %>
+            <% else %>
+              <%= link_to post.user.username, post.user %>
+            <% end %>
+          <% end %>
+
+          <%= link_to time_ago_in_words(post.created_at) + " ago", "#post-#{post.id}", class: 'post-created-at', title: post.created_at %>
+            <% if post.likes.size > 0 %>
+              <span class="post-like-count"><%= pluralize(post.likes.size, 'life') %></span>
+            <% end %>
+
+
+          <div class="post-controls clearfix">
+            <% if can? :like, post %>
+              <% if !@current_user.voted_up_on? post %>
+                <%= link_to "+1UP", [:like, @board, @conversation, post], class: 'oneup-button-clear', data: { id: post.id, liked: false } %>
+              <% else %>
+                <%= link_to "Undo", [:unlike,@board, @conversation, post], class: 'oneup-button-clear oneup-voted', data: { id: post.id, liked: true } %>
+              <% end %>
+            <% end %>
+
+            <% if can? :create, post %>
+              <%= content_tag "a", "", onclick: "Conversation.quotePost('#{post.id}');".html_safe, class: "control-icon quote" %>
+            <% end %>
+
+            <% if (can? :edit, post) && (post != @conversation.first_post) %>
+              <%= link_to "", [:edit, @board, @conversation, post], class: 'control-icon edit' %>
+            <% end %>
+            <% if (can? :edit, post) && (post == @conversation.first_post) %>
+              <%= link_to "", [:edit, @board, @conversation], class: 'control-icon edit' %>
+            <% end %>
+
+            <% if (can? :delete, post) && (post == @conversation.first_post) %>
+              <%= link_to "", [@board, @conversation], method: :delete, data: { confirm: 'Are you sure? This will delete the entire conversation.' }, class: 'control-icon delete' %>
+            <% end %>
+            <% if (can? :delete, post) && (post != @conversation.first_post) %>
+              <%= link_to "", [@board, @conversation, post], method: :delete, data: { confirm: 'Are you sure?' }, class: 'control-icon delete' %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Formatted post content -->
+        <div class="post-content">
+          <%= add_smileys(bbcode_to_html(post.body)).html_safe %>
+        </div>
+
+        <!-- Raw post content with bbcode intact -->
+        <div style="display: none" id="post-author-<%= post.id %>" data-post-author="<%= post.user.username %>"></div>
+        <div style="display: none" id="post-content-<%= post.id %>" data-post-content="<%= post.body %>"></div>
+
+      </div>
+    <% end %>
+  </div>
+
+  <div class="clearfix visible-phone">
+  <% if @posts.previous_page %>
+  <div id="left-navigation">
+    <%= link_to '&laquo; prev'.html_safe, board_conversation_path(@conversation.board, @conversation, page: @posts.previous_page), class: 'post-buttons' %>
+    <% unless @posts.total_pages <= 2 %>
+    <%= link_to 'to start', board_conversation_path(@conversation.board, @conversation, page: 1) %>
+    <% end %>
+  </div>
+  <% end %>
+
+  <% if @posts.next_page %>
+  <div id="right-navigation">
+    <%= link_to 'next &raquo;'.html_safe, board_conversation_path(@conversation.board, @conversation, page: @posts.next_page), class: 'post-buttons' %>
+    <% unless @posts.total_pages <= 2 %>
+      <%= link_to 'to end', board_conversation_path(@conversation.board, @conversation, page: @posts.total_pages) %>
+    <% end %>
+  </div>
+  <% end %>
+  </div>
+
+  <!-- Quick reply -->
+  <% if logged_in? %>
+  <div class="post">
+    <div class="post-avatar">
+      <%= image_tag current_user.avatar.url(:thumb) %>
+    </div>
+    <%= form_for ([@board, @conversation, @conversation.posts.build()]) do |f| %>
+      <div class="post-info post-reply">
+        <%= f.text_area :body, id: 'reply-textarea', class: 'auto-expand', placeholder: "Write a reply..." %>
+        <%= f.submit 'Post Reply', class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>

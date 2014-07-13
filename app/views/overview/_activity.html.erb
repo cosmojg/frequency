@@ -1,0 +1,26 @@
+<%
+    creator = activity.activity_creator
+    link = nil
+    if creator.instance_of? Conversation
+      link = [creator.board, creator]
+    elsif creator.instance_of? Post
+      conversation = creator.conversation
+      board = conversation.board
+      page_number = creator.page_number
+      link = board_conversation_path(board, conversation, page: page_number, anchor: "post-#{creator.id}")
+    elsif creator.instance_of? Comment
+      link = [creator.picture]
+    else
+      link = creator
+    end
+%>
+
+<%= link_to link, class: "activity-item clearfix" do %>
+  <div class="activity-avatar">
+    <%= image_tag activity.user.avatar.url(:thumb) %>
+  </div>
+  <div class="activity-content">
+    <%= activity.message.html_safe %>
+    <div class="activity-time"><%= time_ago_in_words(activity.created_at) %> ago</div>
+  </div>
+<% end %>

@@ -64,7 +64,7 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     erubis (2.7.0)
-    excon (0.38.0)
+    excon (0.86.0)
     execjs (2.2.1)
     figaro (1.0.0.rc1)
       rails (>= 3, < 5)

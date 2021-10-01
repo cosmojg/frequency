@@ -30,7 +30,7 @@ gem 'compass-rails', '~> 1.0.3'
 gem 'compass', '~> 0.12.2'
 gem 'jquery-rails', '~> 3.1.5'
 gem 'unicorn', '~> 4.8.3'
-gem 'paperclip', "~> 3.4.1"
+gem 'paperclip', "~> 4.2.4"
 gem 'aws-sdk', '~> 1.9.2'
 gem 'authlogic', '~> 3.0.0'
 gem 'cancan', '~> 1.6.9'

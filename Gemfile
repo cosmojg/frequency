@@ -28,7 +28,7 @@ gem 'figaro', '~> 1.0.0.rc1'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'compass-rails', '~> 1.0.3'
 gem 'compass', '~> 0.12.2'
-gem 'jquery-rails', '~> 2.1.4'
+gem 'jquery-rails', '~> 3.1.5'
 gem 'unicorn', '~> 4.8.3'
 gem 'paperclip', "~> 3.4.1"
 gem 'aws-sdk', '~> 1.9.2'
